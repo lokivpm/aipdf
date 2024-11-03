@@ -9,7 +9,7 @@ from app.config import SECRET_KEY,FRONTEND_URL
 #cors origins
 app = FastAPI()
 origins = [
-    "https://chatfront-mu.vercel.app",  # Your frontend URL
+    "https://chatfront-dusky.vercel.app",  # Your frontend URL
     "http://localhost:3000",  # Allow localhost for development
     # Add any other origins as needed
 ]
