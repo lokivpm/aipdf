@@ -4,13 +4,13 @@ from app.database import get_db, engine
 from app.models import Base
 from app.routes.auth import router as auth_router
 from starlette.middleware.sessions import SessionMiddleware 
-from app.config import SECRET_KEY
+from app.config import SECRET_KEY,FRONTEND_URL
 
 #cors origins
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[FRONTEND_URL],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
