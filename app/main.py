@@ -8,9 +8,15 @@ from app.config import SECRET_KEY,FRONTEND_URL
 
 #cors origins
 app = FastAPI()
+origins = [
+    "https://chatfront-mu.vercel.app",  # Your frontend URL
+    "http://localhost:3000",  # Allow localhost for development
+    # Add any other origins as needed
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[FRONTEND_URL],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
