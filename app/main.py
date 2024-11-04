@@ -9,9 +9,9 @@ from app.config import SECRET_KEY,FRONTEND_URL
 #cors origins
 app = FastAPI()
 origins = [
-    "https://chatfront-dusky.vercel.app",  # Your frontend URL
-    "http://localhost:3000",  # Allow localhost for development
-    # Add any other origins as needed
+    "https://chatfront-cvpr.onrender.com"
+    "http://localhost:3000",  
+ 
 ]
 
 app.add_middleware(
