@@ -7,11 +7,12 @@ from starlette.middleware.sessions import SessionMiddleware
 from app.config import SECRET_KEY,FRONTEND_URL
 
 #cors origins
+
 app = FastAPI()
+
 origins = [
-    "https://chatfront-cvpr.onrender.com"
+    "https://chatfront-cvpr.onrender.com",
     "http://localhost:3000",  
- 
 ]
 
 app.add_middleware(
