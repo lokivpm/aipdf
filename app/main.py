@@ -22,7 +22,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
+app.add_middleware(
+    SessionMiddleware, 
+    secret_key=SECRET_KEY, 
+    session_cookie="session_id",    # Name of the session cookie
+    same_site="none",               # Allow cookies across origins
+    https_only=True                 # True for production; False for local development over HTTP
+)
 @app.on_event("startup")
 async def on_startup():
     async with engine.begin() as conn:

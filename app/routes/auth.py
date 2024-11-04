@@ -92,17 +92,32 @@ async def verify_registration_otp(data: OTPVerificationRequest, redis=Depends(ge
 
 
 
-# User login
 @router.post("/login/")
-async def login(request: Request, login_data: LoginRequest, db: AsyncSession = Depends(get_db), redis: Redis = Depends(get_redis)):
+async def login(
+    request: Request, 
+    login_data: LoginRequest, 
+    db: AsyncSession = Depends(get_db), 
+    redis: Redis = Depends(get_redis)
+):
     user = await verify_user(login_data.email, login_data.password, db)
     if user:
 
         session_id = str(uuid.uuid4())
-        await redis.set(session_id, user.id, ex=3600)  #expiry to 1 hour
-        response = {"message": "Login successful"}
+        await redis.set(session_id, user.id, ex=3600) 
+
+       
         request.session["session_id"] = session_id
+
+        response = Response(content={"message": "Login successful"})
+        response.set_cookie(
+            key="session_id",
+            value=session_id,
+            httponly=True,
+            samesite="None",  
+            secure=True       
+        )
         return response
+
     raise HTTPException(status_code=400, detail="Invalid credentials")
 
 
