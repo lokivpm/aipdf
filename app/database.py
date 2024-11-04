@@ -1,16 +1,19 @@
-
+import redis
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from app.config import POSTGRES_URL
+from app.config import POSTGRES_URL, REDIS_URL
 
-# async engine
+# PostgreSQL async engine
 engine = create_async_engine(POSTGRES_URL, echo=True)
 
-# base class for models
+# Redis client with SSL
+redis_client = redis.StrictRedis.from_url(REDIS_URL, ssl=True, ssl_cert_reqs=None)
+
+# Base class for models
 Base = declarative_base()
 
-# session factory for AsyncSession
+# Session factory for AsyncSession
 SessionLocal = sessionmaker(
     bind=engine,
     class_=AsyncSession,
